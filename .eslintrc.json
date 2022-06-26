@@ -16,8 +16,9 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": "off",
+    "class-methods-use-this": "off",
+    "comma-dangle": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -27,7 +28,9 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": "off"
   },
   "settings": {
     "import/resolver": {
