@@ -6,6 +6,27 @@ describe('In memory user repository', () => {
     const users: UserData[] = [];
     const userRepo = new InMemoryUserRepository(users);
     const user = await userRepo.findByEmail('johndoe@email.com');
-    expect(user).toBe(null);
+    expect(user).toBeUndefined();
+  });
+
+  test('should return user if it is found in the repository', async () => {
+    const users: UserData[] = [];
+    const name = 'John Doe';
+    const email = 'johndoe@email.com';
+    const userRepo = new InMemoryUserRepository(users);
+    await userRepo.add({ name, email });
+    const user = await userRepo.findByEmail('johndoe@email.com');
+    expect(user.name).toBe(name);
+    expect(user.email).toBe(email);
+  });
+
+  test('should return all users in the repository', async () => {
+    const users: UserData[] = [
+      { name: 'John Doe', email: 'johndoe@email.com' },
+      { name: 'Jane Doe', email: 'janedoe@email.com' }
+    ];
+    const userRepo = new InMemoryUserRepository(users);
+    const returnedUsers = await userRepo.findAll();
+    expect(returnedUsers.length).toBe(2);
   });
 });
