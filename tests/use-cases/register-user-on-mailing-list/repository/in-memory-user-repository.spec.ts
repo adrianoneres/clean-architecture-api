@@ -4,8 +4,8 @@ import { UserData } from '../../../../src/use-cases/register-user-on-mailing-lis
 describe('In memory user repository', () => {
   test('should return null if user is not null', async () => {
     const users: UserData[] = [];
-    const userRepo = new InMemoryUserRepository(users);
-    const user = await userRepo.findByEmail('johndoe@email.com');
+    const sut = new InMemoryUserRepository(users);
+    const user = await sut.findByEmail('johndoe@email.com');
     expect(user).toBeUndefined();
   });
 
@@ -13,9 +13,9 @@ describe('In memory user repository', () => {
     const users: UserData[] = [];
     const name = 'John Doe';
     const email = 'johndoe@email.com';
-    const userRepo = new InMemoryUserRepository(users);
-    await userRepo.add({ name, email });
-    const user = await userRepo.findByEmail('johndoe@email.com');
+    const sut = new InMemoryUserRepository(users);
+    await sut.add({ name, email });
+    const user = await sut.findByEmail('johndoe@email.com');
     expect(user.name).toBe(name);
     expect(user.email).toBe(email);
   });
@@ -25,8 +25,8 @@ describe('In memory user repository', () => {
       { name: 'John Doe', email: 'johndoe@email.com' },
       { name: 'Jane Doe', email: 'janedoe@email.com' }
     ];
-    const userRepo = new InMemoryUserRepository(users);
-    const returnedUsers = await userRepo.findAll();
+    const sut = new InMemoryUserRepository(users);
+    const returnedUsers = await sut.findAll();
     expect(returnedUsers.length).toBe(2);
   });
 });
